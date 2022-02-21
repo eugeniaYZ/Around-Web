@@ -1,0 +1,33 @@
+.login-form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.login-form-button {
+    width: 100px;
+    background-color: #282c34;
+    color: #61dafb;
+    border-color:#61dafb;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.login-form-button:hover {
+    background-color: #61dafb;
+    color: #282c34;
+    border-color:#282c34;
+}
+
+.direct-to-register {
+    font-size: 16px;
+}
+
+.link-to-register {
+    font-weight: bold;
+    color: #282c34;
+}
+
+.link-to-register:hover {
+    color: #61dafb;
+}
+

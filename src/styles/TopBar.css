@@ -13,7 +13,7 @@
 }
 
 .App-title {
-    flex:1;
+    flex-grow:1;
     text-align: left;
     font-weight: bold;
     font-size: 17px;

@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {TOKEN_KEY} from '../constants';
+import {message} from 'antd';
 import TopBar from './TopBar';
 import Main from './Main';
 
@@ -10,8 +11,8 @@ function App() {
 
     const logout = () => {
         localStorage.removeItem(TOKEN_KEY);
-        console.log('logged out');
         setIsLoggedIn(false);
+        message.success('Logout succeed')
     };
     
     const loggedIn = (token) => {

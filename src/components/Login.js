@@ -2,15 +2,37 @@ import React from 'react';
 import {Form, Input, Button, message, Col, Row} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom'
+import axios from 'axios'
+import {BASE_URL} from '../constants'
 
 function Login(props) {
-    const {handleLoggedIn} = props;
+    const {handleLogin} = props;
 
     const onFinish = (values) => {
         const {username, password} = values;
+        const opt = {
+            method:'POST',
+            url: `${BASE_URL}/signin`,
+            data: {
+                username: username,
+                password: password
+            },
+            header: {'Content-Type': 'application/json'}
+        };
+        axios(opt)
+            .then(response => {
+            if (response.status ===200) {
+                const {data} = response;
+                handleLogin(data);
+                message.success('Login succeed')
+            }
+        })
+            .catch(err => {
+                console.log('login failed: ', err.message);
+                message.error('Login failed')
+            });
         //fetch vs axios
         //consider use util.js to organize communication with BE
-
     };
 
     return (

@@ -6,6 +6,7 @@
 @import './styles/Register.css';
 @import './styles/Home.css';
 @import './styles/SearchBar.css';
+@import './styles/CreatePostButton.css';
 
 body {
   margin: 0;

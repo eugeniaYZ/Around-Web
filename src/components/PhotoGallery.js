@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Gallery from 'react-grid-gallery';
 import {message} from 'antd';
 import axios from 'axios';
-import {BASE_URL, TOKEN_KEY} from '../constants';
+import {BASE_URL, TOKEN_KEY, USERNAME} from '../constants';
 
 
 const captionStyle = {
@@ -28,18 +28,21 @@ const wrapperStyle = {
 
 function PhotoGallery(props) {
     const [images, setImages] = useState(props.images);
-    const [curImgIdx, setCurImgIdx] = useState(0)
+    const [curImgIdx, setCurImgIdx] = useState(0);
 
-    const imageArr = images.map(image=>{
+    useEffect(()=>{setImages(props.images)},[props.images])
+
+    const imageArr = images.map(image => {//how many times - this process?
         return {
             ...image,
             customOverlay: (
                 <div style={captionStyle}>
-                    <div>{`${image.user}:${image.caption}`}</div>
+                    <div>{`${image.user}: ${image.caption}`}</div>
                 </div>
             )
-        }
-    })
+        }}
+    )
+
     const onCurrentImageChange = index => {
         setCurImgIdx(index)
     };
@@ -51,25 +54,32 @@ function PhotoGallery(props) {
         // step4: analyze response from the server
         //      case1:success -> update display area
         //      case2:fail -> warning
-        if (window.confirm('Are you sure to delete the photo?')) {
-            const curImage = images[curImgIdx];
-            const newImageArr = images.filter((img, index)=>index !==curImgIdx);
-            const opt = {
-                method: 'DELETE',
-                url: `${BASE_URL}/post/${curImage.postId}`,
-                headers: {'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`}
-            };
-            axios(opt)
-                .then(res=> {
-                    if (res.status === 200) {
-                        setImages(newImageArr);
-                    }
-                })
-                .catch(err=>{
-                    message.error('fetch post failed');
-                    console.log('fetch post failed: ', err.message);
-                })
-        }
+        const curImage = images[curImgIdx];
+
+        if( localStorage.getItem(USERNAME) === curImage.user) {
+            if (window.confirm('Are you sure to delete the photo?')) {
+                // const curImage = images[curImgIdx];
+                const newImageArr = images.filter((img, index) => index !== curImgIdx);
+                const opt = {
+                    method: 'DELETE',
+                    url: `${BASE_URL}/post/${curImage.postId}`,
+                    headers: {'Authorization': `Bearer ${localStorage.getItem(TOKEN_KEY)}`}
+                };
+                axios(opt)
+                    .then(res => {
+                        if (res.status === 200) {
+                            setImages(newImageArr);
+                            if(curImgIdx > newImageArr.length - 1) {
+                                setCurImgIdx(curImgIdx - 1);
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        message.error('fetch post failed');
+                        console.log('fetch post failed: ', err.message);
+                    })
+            }
+        } else {window.confirm('You can not delete this message')}
     };
 
     return (
@@ -84,11 +94,7 @@ function PhotoGallery(props) {
                         style={{marginTop: "10px", marginLeft: "5px"}}
                         key="deleteImage"
                         onClick={onDeleteImage}
-                        // type="primary"
-                        // icon={<DeleteOutlined />}
-                        // size="small"
-
-                    >delete image</button>
+                    >Delete</button>
                 ]}
             />
         </div>

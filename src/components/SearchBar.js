@@ -15,19 +15,30 @@ function SearchBar(props) {
             return;
         }
         setError('');
+        props.handleSearch({
+            type:searchType,
+            keyword:value,
+        })
     };
 
     const changeSearchType = e => {
-        setSearchType(e.target.value);
+        const newSearchType = e.target.value;
+        setSearchType(newSearchType);
         setError('');
+
+        if (newSearchType===SEARCH_KEY.all){ // newSearchType ok, searchType won't update until function finish
+            props.handleSearch({
+                type:searchType,
+                keyword:'',
+            })
+        }
     }
 
     return (
         <div className='search-bar'>
             <Search
-                placeholder="input search text"
-                enterButton="Search"
-                size="large"
+                placeholder='put something here to start...'
+                enterButton='search'
                 onSearch={handleSearch}
                 disabled={searchType===SEARCH_KEY.all}
             />
@@ -35,7 +46,8 @@ function SearchBar(props) {
             <Radio.Group
                 className='search-type-group'
                 onChange={changeSearchType}
-                value={searchType}>
+                value={searchType}
+            >
                 <Radio value={SEARCH_KEY.all}>All</Radio>
                 <Radio value={SEARCH_KEY.keyword}>Keyword</Radio>
                 <Radio value={SEARCH_KEY.user}>User</Radio>

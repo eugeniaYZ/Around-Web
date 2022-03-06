@@ -1,5 +1,6 @@
 export const TOKEN_KEY = 'token';
-export const BASE_URL = 'https://around-dot-around-179500.uc.r.appspot.com'
+export const USERNAME = 'username';
+export const BASE_URL = 'http://34.69.225.227:8080'//'https://lithe-maker-340903.ue.r.appspot.com'
 export const SEARCH_KEY = {
     all: 0,
     keyword: 1,

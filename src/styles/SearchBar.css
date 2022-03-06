@@ -1,8 +1,28 @@
 .search-bar {
+
     width: 500px;
     margin: 0 auto;
 }
-
+.ant-input,.ant-input-disable {
+    border-color: #282c34;
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+/*.ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child{*/
+/*    border-bottom-right-radius: 10px;*/
+/*    border-top-right-radius: 10px;*/
+/*}*/
+.ant-input-group-addon .ant-btn-primary{
+    width: 100px;
+    background: #282c34;
+    color: #61dafb;
+    border-color:#61dafb;
+    font-weight: bold;
+}
+.ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
 .search-type-group {
     margin-top: 6px;
 }

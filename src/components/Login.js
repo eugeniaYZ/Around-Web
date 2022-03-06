@@ -23,7 +23,7 @@ function Login(props) {
             .then(response => {
             if (response.status ===200) {
                 const {data} = response;
-                handleLogin(data);
+                handleLogin(data, username);
                 message.success('Login succeed')
             }
         })

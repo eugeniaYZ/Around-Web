@@ -1,0 +1,15 @@
+.new-post {
+    width: 130px;
+    background-color: #282c34;
+    color: #61dafb;
+    border-color:#61dafb;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.new-post:hover {
+    background-color: #61dafb;
+    color: #282c34;
+    border-color:#282c34;
+}
